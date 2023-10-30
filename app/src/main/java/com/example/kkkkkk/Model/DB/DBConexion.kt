@@ -10,7 +10,7 @@ import com.example.kkkkkk.Model.Models.Sexo
 import com.example.kkkkkk.Model.Models.Usuario
 
 
-@Database(entities = [Sexo::class, Usuario::class], version = 1)
+@Database(entities = [Sexo::class, Usuario::class], version = 2)
 abstract class DBConexion : RoomDatabase() {
     abstract fun SexoDao(): daoSexo
     abstract fun UsuarioDao(): daoUsuario

@@ -23,6 +23,7 @@ class Item_Adapter(var lista: MutableList<Sexo>) :
             txtname.text = item.ID.toString()
             txtapellido.text = item.Nombre
 
+
         }
     }
 

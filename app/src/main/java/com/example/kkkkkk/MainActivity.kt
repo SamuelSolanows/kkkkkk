@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         db = DBConexion.GetDataBase(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.Rview.layoutManager = LinearLayoutManager(this)
         binding.apply {
             btn.setOnClickListener {
                 Rview.adapter = Item_Adapter(ConsumoRaw().toMutableList())
@@ -87,8 +88,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun ConsumoRaw(): List<Sexo> {
-        val rutaArchivo = "res/raw/data.json"
-        val inputStream = this.javaClass.classLoader.getResourceAsStream(rutaArchivo)
+        val inputStream = this.javaClass.classLoader.getResourceAsStream("res/raw/data.json")
         try {
             val read = BufferedReader(InputStreamReader(inputStream)).readText()
             val listType: Type = object : TypeToken<List<Sexo>>() {}.type
@@ -97,7 +97,6 @@ class MainActivity : AppCompatActivity() {
             Log.e("rrrr", e.message.toString())
         }
         return emptyList()
-
     }
 
 
@@ -110,6 +109,7 @@ class MainActivity : AppCompatActivity() {
             val reader = BufferedReader(InputStreamReader(inputStream))
             val json = reader.readText()
             val listType: Type? = object : TypeToken<List<Sexo>>() {}.type
+            Log.e("kkkk", "tamelomirei")
             return Gson().fromJson(json, listType)
 
         } catch (e: IOException) {
