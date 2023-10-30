@@ -1,0 +1,18 @@
+[
+  {
+    "ID": 1,
+    "Nombre": "Masculino"
+  },
+  {
+    "ID": 2,
+    "Nombre": "Femenino"
+  },
+  {
+    "ID": 3,
+    "Nombre": "No binario"
+  },
+  {
+    "ID": 4,
+    "Nombre": "Otro"
+  }
+]

@@ -15,9 +15,16 @@ import com.example.kkkkkk.Model.Models.Sexo
 import com.example.kkkkkk.Model.Models.Usuario
 import com.example.kkkkkk.databinding.ActivityMainBinding
 import com.example.kkkkkk.databinding.ItemAdapterBinding
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.BufferedInputStream
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStreamReader
+import java.lang.reflect.Type
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -27,10 +34,9 @@ class MainActivity : AppCompatActivity() {
         db = DBConexion.GetDataBase(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        k()
         binding.apply {
             btn.setOnClickListener {
-                getSexo()
+                Rview.adapter = Item_Adapter(ConsumoRaw().toMutableList())
             }
 
         }
@@ -74,39 +80,42 @@ class MainActivity : AppCompatActivity() {
             var lis2 = db.UsuarioDao().GetUsuarios()
             runOnUiThread {
                 binding.Rview.layoutManager = LinearLayoutManager(this@MainActivity)
-                binding.Rview.adapter = Item_Adapter(list.toMutableList(), lis2.toMutableList())
+                binding.Rview.adapter = Item_Adapter(list.toMutableList())
             }
         }
     }
 
 
-    fun k() {
-        var bing: ItemAdapterBinding
-        bing = ItemAdapterBinding.inflate(layoutInflater)
-        bing.btn.setOnClickListener {
-            startActivity(Intent(this@MainActivity, MainActivity2::class.java))
+    private fun ConsumoRaw(): List<Sexo> {
+        val rutaArchivo = "res/raw/data.json"
+        val inputStream = this.javaClass.classLoader.getResourceAsStream(rutaArchivo)
+        try {
+            val read = BufferedReader(InputStreamReader(inputStream)).readText()
+            val listType: Type = object : TypeToken<List<Sexo>>() {}.type
+            return Gson().fromJson(read, listType)
+        } catch (e: Exception) {
+            Log.e("rrrr", e.message.toString())
         }
+        return emptyList()
+
     }
 
-//    private fun ConsumoRaw(): List<Usuario> {
-//        val rutaArchivo = "res/raw/data.json"
-//        val imputStream =
-//
-//            return
-//
-//    }
 
+    fun consumoRaw(): List<Sexo> {
+        val res = resources
 
-    fun a() {
-        object : CountDownTimer(3000, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
+        val filePath = "res/raw/data.json"
+        val inputStream = this.javaClass.classLoader.getResourceAsStream(filePath)
+        try {
+            val reader = BufferedReader(InputStreamReader(inputStream))
+            val json = reader.readText()
+            val listType: Type? = object : TypeToken<List<Sexo>>() {}.type
+            return Gson().fromJson(json, listType)
 
-            }
-
-
-            override fun onFinish() {
-
-            }
+        } catch (e: IOException) {
+            Log.e("kkkk", e.message.toString())
         }
+        return emptyList()
     }
+
 }

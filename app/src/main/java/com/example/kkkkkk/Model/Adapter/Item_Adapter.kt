@@ -8,7 +8,7 @@ import com.example.kkkkkk.Model.Models.Sexo
 import com.example.kkkkkk.Model.Models.Usuario
 import com.example.kkkkkk.databinding.ItemAdapterBinding
 
-class Item_Adapter(var lista: MutableList<Sexo>, var list2: MutableList<Usuario>) :
+class Item_Adapter(var lista: MutableList<Sexo>) :
     RecyclerView.Adapter<Item_Adapter.Holder>() {
     inner class Holder(var binding: ItemAdapterBinding) : ViewHolder(binding.root)
 
@@ -18,13 +18,11 @@ class Item_Adapter(var lista: MutableList<Sexo>, var list2: MutableList<Usuario>
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         var item = lista[position]
-        var usuario = list2[position]
         var binding = holder.binding
         binding.apply {
             txtname.text = item.ID.toString()
             txtapellido.text = item.Nombre
 
-            txtnose.text = usuario.Nombre
         }
     }
 
